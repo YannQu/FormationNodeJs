@@ -1,0 +1,32 @@
+const Sequelize = require('sequelize');
+const db = require('../config/databaseSeq');
+
+const SERIE = db.define("serie", {
+    name: {
+        type: Sequelize.STRING
+    },
+    nbSaisons: {
+        type: Sequelize.INTEGER
+    }
+},
+{
+    timestamps: false
+});
+
+async function addSerie(name, nbSaisons) {
+    return await SERIE.create({name: name, nbSaisons: nbSaisons});
+}
+
+async function findAll() {
+    return await SERIE.findAll();
+}
+
+async function findOne(id) {
+    return await SERIE.findAll({
+        where: {
+          id: id
+        }
+      });
+}
+
+module.exports = {addSerie, findAll, findOne};
