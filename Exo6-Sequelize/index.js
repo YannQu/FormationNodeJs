@@ -1,4 +1,3 @@
-// const mysql = require('mysql2');
 const db = require('./config/databaseSeq');
 const series = require('./models/series');
 const express = require("express");
@@ -31,17 +30,3 @@ app.post("/series/addSerie", async function (req, res) {
 app.listen(8080, function () {
     console.log("Server is running on port 8080 ");
 });
-
-/** MySql
-let con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "root",
-    port:3306,
-    database: "videotheque"
-});
-
-con.query("SELECT * FROM films", (err2, result, fields) => {
-    if (err) throw console.log(err);
-    console.log(result);
-}) */
