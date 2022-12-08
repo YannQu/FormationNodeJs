@@ -21,19 +21,29 @@ async function findAll() {
     return await SERIE.findAll();
 }
 
-async function findOne(id) {
-    return await SERIE.findAll({
+async function findByID(id) {
+    return await SERIE.findOne({
         where: {
           id: id
         }
-      });
+    });
 }
 
 async function removeSerie(id) {
     return await SERIE.destroy({
         where: {
           id: id
-        }});
+    }});
 }
 
-module.exports = {addSerie, findAll, findOne, removeSerie};
+async function updateSerie(id, newInfo) {
+    const serie = await SERIE.findOne({
+        where: {
+          id: id
+        }
+    });
+    await serie.set(newInfo);
+    return await serie.save();
+}
+
+module.exports = {addSerie, findAll, findByID, removeSerie, updateSerie};

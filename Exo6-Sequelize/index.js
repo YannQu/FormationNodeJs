@@ -12,8 +12,7 @@ app.get("/series", async function (req, res) {
 
 app.get("/series/:id", async function (req, res) {
     const id = req.params.id;
-    const maSerie = await series.findOne(id);
-    console.log(maSerie);
+    const maSerie = await series.findByID(id);
     return res.status(201).json({serie: maSerie});
 });
 
@@ -34,6 +33,24 @@ app.post("/series/removeSerie", async function (req, res) {
     }
     const removedSerie = await series.removeSerie(id);
     return res.status(201).json({message: "Serie deleted !", removedSerie});
+});
+
+app.put("/series/updateSerie/:id", async function (req, res) {
+    const id = req.params.id;
+    const name = req.body.name;
+    const nbSaisons = req.body.nbSaisons;
+    const newInfo = {};
+    if (!name && !nbSaisons) {
+       return res.status(404).json({Error: "Nothing to update !"});
+    }
+    if (name) {
+        newInfo.name = name;
+    }
+    if (nbSaisons) {
+        newInfo.nbSaisons = nbSaisons;
+    }
+    const updatedSerie = await series.updateSerie(id, newInfo);
+    return res.status(201).json({message: "Serie Updated !", updatedSerie});
 });
 
 app.listen(8080, function () {
