@@ -21,10 +21,19 @@ app.post("/series/addSerie", async function (req, res) {
     const name = req.body.name;
     const nbSaisons = req.body.nbSaisons;
     if (!name || !nbSaisons) {
-       return res.status(404).json({Error: "Série name and number of saisons are required !"});
+       return res.status(404).json({Error: "Serie name and number of saisons are required !"});
     }
     const newSerie = await series.addSerie(name, nbSaisons);
     return res.status(201).json({message: "Serie added !", newSerie});
+});
+
+app.post("/series/removeSerie", async function (req, res) {
+    const id = req.body.id;
+    if (!id) {
+       return res.status(404).json({Error: "id is required !"});
+    }
+    const removedSerie = await series.removeSerie(id);
+    return res.status(201).json({message: "Serie deleted !", removedSerie});
 });
 
 app.listen(8080, function () {

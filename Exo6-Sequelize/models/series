@@ -29,4 +29,11 @@ async function findOne(id) {
       });
 }
 
-module.exports = {addSerie, findAll, findOne};
+async function removeSerie(id) {
+    return await SERIE.destroy({
+        where: {
+          id: id
+        }});
+}
+
+module.exports = {addSerie, findAll, findOne, removeSerie};
